@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuantumMart | Quantum-Based Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --quantum-dark: #0b0b1d;
+      --quantum-primary: #7b3fe4;
+      --quantum-secondary: #00d1ff;
+      --quantum-accent: #ff2d75;
+      --quantum-light: #e0f7fa;
+      --quantum-bg: #f8f9ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--quantum-bg);
+      color: var(--quantum-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: var(--quantum-dark);
+      color: white;
+      padding: 15px 5%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--quantum-secondary);
+      z-index: 1001;
+    }
+
+    .logo i {
+      color: var(--quantum-primary);
+      animation: pulse 2s infinite;
+    }
+
+    /* Enhanced Mobile Menu */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+
+    .menu-toggle i {
+      font-size: 1.5rem;
+      color: var(--quantum-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 8px 0;
+      font-size: 1rem;
+    }
+
+    .menu a:hover {
+      color: var(--quantum-secondary);
+    }
+
+    .menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--quantum-secondary);
+      transition: width 0.3s ease;
+    }
+
+    .menu a:hover::after {
+      width: 100%;
+    }
+
+    .login-btn {
+      background: rgba(0, 209, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 8px;
+      color: var(--quantum-secondary) !important;
+      font-weight: 600;
+    }
+
+    .login-btn:hover {
+      background: rgba(0, 209, 255, 0.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--quantum-dark), #1a1a3a);
+      color: white;
+      text-align: center;
+      padding: 150px 20px 80px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 70px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, var(--quantum-secondary), var(--quantum-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: rgba(255, 255, 255, 0.9);
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--quantum-primary), var(--quantum-accent));
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(123, 63, 228, 0.4);
+      animation: fadeInUp 1s ease 0.4s forwards;
+      opacity: 0;
+      font-size: 0.95rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(123, 63, 228, 0.6);
+    }
+
+    .section {
+      padding: 80px 5%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: var(--quantum-dark);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -10px;
+      left: 0;
+      background: linear-gradient(to right, var(--quantum-primary), var(--quantum-secondary));
+      border-radius: 2px;
+    }
+
+    .features,
+    .partners,
+    .stats,
+    .products,
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--quantum-primary), var(--quantum-secondary));
+    }
+
+    .feature-card {
+      text-align: center;
+    }
+
+    .feature-card i {
+      font-size: 2.2rem;
+      color: var(--quantum-primary);
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--quantum-primary), var(--quantum-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--quantum-dark);
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+    }
+
+    .product-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--quantum-primary);
+    }
+
+    .product-card p {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .product-card .price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--quantum-accent);
+    }
+
+    .product-card .rating {
+      color: #ffc107;
+      font-size: 0.9rem;
+    }
+
+    .product-card .buy-btn {
+      display: inline-block;
+      background: var(--quantum-primary);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .product-card .buy-btn:hover {
+      background: var(--quantum-accent);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, var(--quantum-primary), var(--quantum-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-card p {
+      font-size: 0.95rem;
+    }
+
+    .partner-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .partner-card:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    .partner-card i {
+      font-size: 2.5rem;
+      color: var(--quantum-primary);
+    }
+
+    /* New Reviews Section */
+    .review-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .review-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--quantum-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--quantum-primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .review-info h4 {
+      margin-bottom: 5px;
+      color: var(--quantum-dark);
+    }
+
+    .review-stars {
+      color: #ffc107;
+      font-size: 0.9rem;
+    }
+
+    .review-date {
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    .review-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Improved Contact Form */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .contact-info {
+      padding: 20px;
+    }
+
+    .contact-form {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--quantum-dark);
+      font-size: 0.95rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--quantum-primary);
+      box-shadow: 0 0 0 3px rgba(123, 63, 228, 0.1);
+      outline: none;
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, var(--quantum-primary), var(--quantum-accent));
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(123, 63, 228, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(123, 63, 228, 0.4);
+    }
+
+    .contact-details {
+      margin-top: 30px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      color: var(--quantum-dark);
+    }
+
+    .contact-item i {
+      margin-right: 15px;
+      color: var(--quantum-primary);
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: var(--quantum-dark);
+      color: white;
+      padding: 50px 5% 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: left;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+
+    .footer-column h3 {
+      color: var(--quantum-secondary);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--quantum-secondary);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--quantum-primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .quantum-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--quantum-secondary), transparent 70%);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--quantum-dark);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 25px 30px;
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .menu.active {
+        right: 0;
+      }
+
+      .menu a {
+        width: 100%;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .menu a:last-child {
+        border-bottom: none;
+      }
+
+      .login-btn {
+        margin-top: 15px;
+        text-align: center;
+        display: block;
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        order: 2;
+        text-align: center;
+        padding: 0;
+      }
+
+      .contact-form {
+        order: 1;
+      }
+
+      .contact-item {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section h2 {
+        font-size: 1.8rem;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .review-avatar {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      .hero {
+        padding: 130px 20px 70px;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .cta-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        margin: 5px;
+      }
+
+      .section {
+        padding: 60px 5%;
+      }
+
+      .features,
+      .partners,
+      .stats,
+      .products,
+      .reviews {
+        grid-template-columns: 1fr;
+      }
+
+      .form-input, .submit-btn {
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <i class="fas fa-atom floating"></i>
+        <span>QuantumMart</span>
+      </div>
+      
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <div class="menu" id="main-menu">
+        <a href="#features">Features</a>
+        <a href="#products">Marketplace</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#stats">Impact</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#" class="login-btn">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Quantum Computing Solutions Marketplace</h1>
+      <p>The premier platform for trading quantum algorithms, research patterns, and computational results. Accelerate innovation through quantum-powered collaboration.</p>
+      <div>
+        <a href="#products" class="cta-button">Explore Marketplace</a>
+        <a href="#" class="cta-button" style="background: linear-gradient(45deg, var(--quantum-accent), #ff6b00);">Become a Seller</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <h2>Why QuantumMart?</h2>
+    <div class="features">
+      <div class="card feature-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Quantum-Secure</h3>
+        <p>Post-quantum cryptography ensures your transactions and intellectual property remain protected against future threats.</p>
+      </div>
+      <div class="card feature-card">
+        <i class="fas fa-bolt"></i>
+        <h3>Lightning Transactions</h3>
+        <p>Quantum entanglement-based payment system enables near-instantaneous global transactions with zero latency.</p>
+      </div>
+      <div class="card feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Smart Royalties</h3>
+        <p>Blockchain-powered smart contracts automatically distribute royalties for derivative works and subsequent usage.</p>
+      </div>
+      <div class="card feature-card">
+        <i class="fas fa-microscope"></i>
+        <h3>Research Validation</h3>
+        <p>Peer-review system powered by quantum machine learning ensures result accuracy and research integrity.</p>
+      </div>
+      <div class="card feature-card">
+        <i class="fas fa-network-wired"></i>
+        <h3>Quantum Cloud</h3>
+        <p>Access to distributed quantum computing resources to verify and build upon purchased solutions.</p>
+      </div>
+      <div class="card feature-card">
+        <i class="fas fa-users"></i>
+        <h3>Collaboration Hub</h3>
+        <p>Connect with quantum researchers, developers, and organizations worldwide to form partnerships.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="section" style="background-color: #f5f7ff;">
+    <h2>Featured Quantum Solutions</h2>
+    <div class="products">
+      <div class="card product-card">
+        <h3>Protein Folding Algorithm</h3>
+        <p class="price">$2,450</p>
+        <p>Quantum solution reduces folding simulation time from months to hours with 98.7% accuracy.</p>
+        <p><span class="rating">★★★★★</span> (42 reviews)</p>
+        <p><i class="fas fa-dna" style="color: var(--quantum-primary);"></i> Biomedical Applications</p>
+        <a href="#" class="buy-btn">Purchase</a>
+      </div>
+      <div class="card product-card">
+        <h3>Financial Portfolio Optimizer</h3>
+        <p class="price">$1,850</p>
+        <p>QUBO model for portfolio optimization outperforms classical methods by 27% in backtesting.</p>
+        <p><span class="rating">★★★★☆</span> (36 reviews)</p>
+        <p><i class="fas fa-chart-pie" style="color: var(--quantum-primary);"></i> FinTech Solutions</p>
+        <a href="#" class="buy-btn">Purchase</a>
+      </div>
+      <div class="card product-card">
+        <h3>Quantum ML Pattern Recognition</h3>
+        <p class="price">$3,200</p>
+        <p>Hybrid quantum-classical model for image recognition with 40% faster training convergence.</p>
+        <p><span class="rating">★★★★★</span> (58 reviews)</p>
+        <p><i class="fas fa-robot" style="color: var(--quantum-primary);"></i> AI Development</p>
+        <a href="#" class="buy-btn">Purchase</a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="#" class="cta-button" style="display: inline-block;">View All Solutions</a>
+    </div>
+  </section>
+
+  <!-- New Reviews Section -->
+  <section id="reviews" class="section">
+    <h2>Customer Reviews</h2>
+    <div class="reviews">
+      <div class="card review-card">
+        <div class="review-header">
+          <div class="review-avatar">JD</div>
+          <div class="review-info">
+            <h4>Dr. Jane Doe</h4>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-date">March 15, 2025</div>
+          </div>
+        </div>
+        <div class="review-content">
+          <p>"The protein folding algorithm I purchased reduced our research time by 80%. The documentation was excellent and the support team was responsive. Highly recommended for any biomedical research team."</p>
+        </div>
+      </div>
+      <div class="card review-card">
+        <div class="review-header">
+          <div class="review-avatar">RS</div>
+          <div class="review-info">
+            <h4>Prof. Robert Smith</h4>
+            <div class="review-stars">★★★★☆</div>
+            <div class="review-date">February 28, 2025</div>
+          </div>
+        </div>
+        <div class="review-content">
+          <p>"The financial optimizer helped our hedge fund achieve better returns with less risk. The only reason I'm not giving 5 stars is that the integration took a bit more work than expected."</p>
+        </div>
+      </div>
+      <div class="card review-card">
+        <div class="review-header">
+          <div class="review-avatar">AM</div>
+          <div class="review-info">
+            <h4>Alice Martinez</h4>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-date">January 10, 2025</div>
+          </div>
+        </div>
+        <div class="review-content">
+          <p>"As a startup founder, QuantumMart has been invaluable. The quantum ML patterns helped us build a competitive edge in image recognition. The marketplace is easy to use and the community is supportive."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats" class="section">
+    <h2>Quantum Impact</h2>
+    <div class="stats">
+      <div class="card stat-card">
+        <div class="number">15K+</div>
+        <p>Quantum Solutions Traded</p>
+      </div>
+      <div class="card stat-card">
+        <div class="number">$42M+</div>
+        <p>Total Marketplace Value</p>
+      </div>
+      <div class="card stat-card">
+        <div class="number">3.2K+</div>
+        <p>Research Institutions</p>
+      </div>
+      <div class="card stat-card">
+        <div class="number">96%</div>
+        <p>Customer Satisfaction</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section" style="background-color: #f5f7ff;">
+    <h2>About QuantumMart</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+      <div>
+        <p style="margin-bottom: 20px; font-size: 1rem; line-height: 1.8;">
+          QuantumMart is revolutionizing how quantum computing research is commercialized and shared. Founded in 2023 by a team of quantum physicists and blockchain experts, our platform bridges the gap between cutting-edge research and practical applications.
+        </p>
+        <p style="margin-bottom: 20px; font-size: 1rem; line-height: 1.8;">
+          We believe that by creating a secure, transparent marketplace for quantum algorithms and solutions, we can accelerate the quantum revolution across industries from pharmaceuticals to finance, materials science to artificial intelligence.
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+          <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <i class="fas fa-eye" style="font-size: 1.5rem; color: var(--quantum-primary); margin-bottom: 10px;"></i>
+            <h3 style="margin-bottom: 8px; font-size: 1.1rem;">Our Vision</h3>
+            <p style="font-size: 0.9rem;">Democratize access to quantum computing breakthroughs</p>
+          </div>
+          <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <i class="fas fa-rocket" style="font-size: 1.5rem; color: var(--quantum-accent); margin-bottom: 10px;"></i>
+            <h3 style="margin-bottom: 8px; font-size: 1.1rem;">Our Mission</h3>
+            <p style="font-size: 0.9rem;">Build the infrastructure for quantum innovation economy</p>
+          </div>
+        </div>
+      </div>
+      <div style="position: relative;">
+        <div style="background: linear-gradient(45deg, var(--quantum-primary), var(--quantum-secondary)); width: 100%; height: 300px; border-radius: 12px; position: relative; overflow: hidden;">
+          <div class="quantum-particle" style="width: 100px; height: 100px; top: 20px; left: 30px;"></div>
+          <div class="quantum-particle" style="width: 150px; height: 150px; bottom: 40px; right: 40px;"></div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; z-index: 1;">
+            <i class="fas fa-atom" style="font-size: 3rem; margin-bottom: 15px;"></i>
+            <h3 style="font-size: 1.3rem;">The Future of Computation</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" class="section">
+    <h2>Technology Partners</h2>
+    <div class="partners">
+      <div class="card partner-card">
+        <i class="fab fa-google" style="font-size: 2.5rem; color: var(--quantum-primary);"></i>
+      </div>
+      <div class="card partner-card">
+        <i class="fab fa-aws" style="font-size: 2.5rem; color: var(--quantum-primary);"></i>
+      </div>
+      <div class="card partner-card">
+        <i class="fas fa-server" style="font-size: 2.5rem; color: var(--quantum-primary);"></i>
+      </div>
+      <div class="card partner-card">
+        <i class="fab fa-ethereum" style="font-size: 2.5rem; color: var(--quantum-primary);"></i>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section" style="background-color: #f5f7ff;">
+    <h2>Join the Quantum Revolution</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3 style="font-size: 1.3rem; margin-bottom: 15px; color: var(--quantum-primary);">Get in Touch</h3>
+        <p style="margin-bottom: 20px; font-size: 1rem;">
+          Have questions about how QuantumMart can benefit your research or business? Our quantum specialists are ready to help you navigate the marketplace and maximize your quantum potential.
+        </p>
+        
+        <div class="contact-details">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>contact@quantummart.tech</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+1 (555) Q-BIT-TECH</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Quantum Valley, Waterloo, Canada</span>
+          </div>
+        </div>
+      </div>
+      
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name" class="form-label">Your Name *</label>
+          <input type="text" id="name" class="form-input" placeholder="Enter your name" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label">Your Email *</label>
+          <input type="email" id="email" class="form-input" placeholder="Enter your email" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="organization" class="form-label">Organization</label>
+          <input type="text" id="organization" class="form-input" placeholder="Your organization" />
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="form-label">Your Message *</label>
+          <textarea id="message" class="form-input form-textarea" placeholder="Your quantum inquiry" required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>QuantumMart</h3>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 15px; line-height: 1.7; font-size: 0.9rem;">
+          The world's first quantum computing solutions marketplace, accelerating the commercialization of quantum breakthroughs.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h3>Marketplace</h3>
+        <ul>
+          <li><a href="#">Browse Solutions</a></li>
+          <li><a href="#">Become a Seller</a></li>
+          <li><a href="#">Pricing Plans</a></li>
+          <li><a href="#">Success Stories</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Quantum Tutorials</a></li>
+          <li><a href="#">Developer API</a></li>
+          <li><a href="#">Research Papers</a></li>
+          <li><a href="#">Help Center</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 QuantumMart Technologies Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced Mobile Menu Functionality
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const mainMenu = document.getElementById('main-menu');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+      mainMenu.classList.toggle('active');
+      document.body.style.overflow = mainMenu.classList.contains('active') ? 'hidden' : 'auto';
+      
+      // Change icon with animation
+      const icon = mobileMenuBtn.querySelector('i');
+      if (mainMenu.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        mainMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        icon.style.transform = 'rotate(0deg)';
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Form Validation
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        if (!name || !email || !message) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
+        // Simulate form submission
+        alert('Thank you for your message! We will contact you soon.');
+        contactForm.reset();
+      });
+    }
+
+    // Create floating quantum particles
+    document.addEventListener('DOMContentLoaded', function() {
+      const hero = document.querySelector('.hero');
+      for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('quantum-particle');
+        particle.style.width = `${Math.random() * 15 + 10}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.opacity = Math.random() * 0.4 + 0.2;
+        hero.appendChild(particle);
+        
+        // Animate particles
+        animateParticle(particle);
+      }
+    });
+
+    function animateParticle(particle) {
+      let x = parseFloat(particle.style.left);
+      let y = parseFloat(particle.style.top);
+      let xSpeed = (Math.random() - 0.5) * 0.15;
+      let ySpeed = (Math.random() - 0.5) * 0.15;
+      
+      function move() {
+        x += xSpeed;
+        y += ySpeed;
+        
+        // Bounce off edges
+        if (x < 0 || x > 100) xSpeed *= -1;
+        if (y < 0 || y > 100) ySpeed *= -1;
+        
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+        
+        requestAnimationFrame(move);
+      }
+      
+      move();
+    }
+    
+    // Animate sections when scrolling
+    const observerOptions = {
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.card, .section h2, .section p, .review-card').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>
